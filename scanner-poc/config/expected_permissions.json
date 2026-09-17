@@ -1,0 +1,34 @@
+{
+  "Designer": [
+    "view_project",
+    "view_project_list",
+    "view_file",
+    "upload_file",
+    "download_file",
+    "view_task",
+    "update_task",
+    "create_task",
+    "comment_task",
+    "view_own_profile",
+    "update_own_profile",
+    "view_workspace_metadata"
+  ],
+  "Admin": [
+    "view_project",
+    "view_project_list",
+    "view_file",
+    "upload_file",
+    "download_file",
+    "view_task",
+    "update_task",
+    "create_task",
+    "comment_task",
+    "view_own_profile",
+    "update_own_profile",
+    "view_workspace_metadata",
+    "delete_project",
+    "invite_admin",
+    "export_client_contract",
+    "manage_billing"
+  ]
+}

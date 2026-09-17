@@ -1,0 +1,6 @@
+{
+  "t1-admin":    { "label": "Admin1 (Acme Architecture / Admin)",       "tenant": "tenant1", "role": "Admin" },
+  "t1-designer": { "label": "Designer1 (Acme Architecture / Designer)", "tenant": "tenant1", "role": "Designer" },
+  "t2-admin":    { "label": "Admin2 (Northwind Studio / Admin)",        "tenant": "tenant2", "role": "Admin" },
+  "t2-designer": { "label": "Designer2 (Northwind Studio / Designer)",  "tenant": "tenant2", "role": "Designer" }
+}
