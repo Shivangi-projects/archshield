@@ -1,0 +1,389 @@
+{
+  "generated_at": "2026-09-17T07:21:19.709675+00:00",
+  "summary": {
+    "tenant_isolation_score": 44.7,
+    "score_formula": "sum(weight of PASSED boundaries) / sum(weight of ALL boundaries) * 100",
+    "boundaries_tested": 17,
+    "violations_found": 7,
+    "permission_drift_roles": 1,
+    "total_weight": 38,
+    "passed_weight": 17
+  },
+  "boundary_results": [
+    {
+      "id": "BT-01",
+      "boundary": "Project Access",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Medium",
+      "actor": "t2-designer",
+      "method": "GET",
+      "path": "/api/projects/proj1",
+      "expected": "DENY",
+      "actor_label": "Designer2 (Northwind Studio / Designer)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 2
+    },
+    {
+      "id": "BT-02",
+      "boundary": "Project Access",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Medium",
+      "actor": "t1-admin",
+      "method": "GET",
+      "path": "/api/projects/proj2",
+      "expected": "DENY",
+      "actor_label": "Admin1 (Acme Architecture / Admin)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 2
+    },
+    {
+      "id": "BT-03",
+      "boundary": "Project Access",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Medium",
+      "actor": "t1-designer",
+      "method": "GET",
+      "path": "/api/projects/proj1",
+      "expected": "ALLOW",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "PASS",
+      "weight": 2
+    },
+    {
+      "id": "BT-04",
+      "boundary": "File Access",
+      "test_type": "Direct Object Reference (IDOR)",
+      "sensitivity": "High",
+      "actor": "t2-designer",
+      "method": "GET",
+      "path": "/api/files/file1",
+      "expected": "DENY",
+      "actor_label": "Designer2 (Northwind Studio / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-05",
+      "boundary": "File Access",
+      "test_type": "Direct Object Reference (IDOR)",
+      "sensitivity": "High",
+      "actor": "t1-designer",
+      "method": "GET",
+      "path": "/api/files/file2",
+      "expected": "DENY",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-06",
+      "boundary": "File Access",
+      "test_type": "Direct Object Reference (IDOR)",
+      "sensitivity": "High",
+      "actor": "t1-admin",
+      "method": "GET",
+      "path": "/api/files/file2",
+      "expected": "DENY",
+      "actor_label": "Admin1 (Acme Architecture / Admin)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-07",
+      "boundary": "Task Access",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Low",
+      "actor": "t2-admin",
+      "method": "GET",
+      "path": "/api/tasks/task1",
+      "expected": "DENY",
+      "actor_label": "Admin2 (Northwind Studio / Admin)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 1
+    },
+    {
+      "id": "BT-08",
+      "boundary": "Task Access",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Low",
+      "actor": "t1-designer",
+      "method": "GET",
+      "path": "/api/tasks/task2",
+      "expected": "DENY",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 1
+    },
+    {
+      "id": "BT-09",
+      "boundary": "Workspace Metadata",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Low",
+      "actor": "t1-designer",
+      "method": "GET",
+      "path": "/api/workspace/metadata?tenant=tenant2",
+      "expected": "DENY",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 1
+    },
+    {
+      "id": "BT-10",
+      "boundary": "Workspace Metadata",
+      "test_type": "Cross-Tenant Access",
+      "sensitivity": "Low",
+      "actor": "t2-admin",
+      "method": "GET",
+      "path": "/api/workspace/metadata?tenant=tenant1",
+      "expected": "DENY",
+      "actor_label": "Admin2 (Northwind Studio / Admin)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 1
+    },
+    {
+      "id": "BT-11",
+      "boundary": "Admin Action",
+      "test_type": "Cross-Role Access",
+      "sensitivity": "High",
+      "actor": "t1-designer",
+      "method": "POST",
+      "path": "/api/perform/delete_project",
+      "expected": "DENY",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-12",
+      "boundary": "Admin Action",
+      "test_type": "Cross-Role Access",
+      "sensitivity": "High",
+      "actor": "t2-designer",
+      "method": "POST",
+      "path": "/api/perform/invite_admin",
+      "expected": "DENY",
+      "actor_label": "Designer2 (Northwind Studio / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-13",
+      "boundary": "Admin Action",
+      "test_type": "Cross-Role Access",
+      "sensitivity": "High",
+      "actor": "t1-designer",
+      "method": "POST",
+      "path": "/api/perform/export_client_contract",
+      "expected": "DENY",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-14",
+      "boundary": "Admin Action",
+      "test_type": "Cross-Role Access",
+      "sensitivity": "High",
+      "actor": "t2-designer",
+      "method": "POST",
+      "path": "/api/perform/manage_billing",
+      "expected": "DENY",
+      "actor_label": "Designer2 (Northwind Studio / Designer)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 3
+    },
+    {
+      "id": "BT-15",
+      "boundary": "Admin Action",
+      "test_type": "Cross-Role Access",
+      "sensitivity": "Medium",
+      "actor": "t1-admin",
+      "method": "POST",
+      "path": "/api/perform/delete_project",
+      "expected": "ALLOW",
+      "actor_label": "Admin1 (Acme Architecture / Admin)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "PASS",
+      "weight": 2
+    },
+    {
+      "id": "BT-16",
+      "boundary": "API Access",
+      "test_type": "UI-vs-API Consistency",
+      "sensitivity": "High",
+      "actor": "t1-designer",
+      "method": "POST",
+      "path": "/api/perform/delete_project",
+      "expected": "DENY",
+      "note": "Delete Project button is hidden in the UI for Designers",
+      "actor_label": "Designer1 (Acme Architecture / Designer)",
+      "http_status": 200,
+      "actual": "ALLOW",
+      "status": "FAIL",
+      "weight": 3
+    },
+    {
+      "id": "BT-17",
+      "boundary": "API Access",
+      "test_type": "UI-vs-API Consistency",
+      "sensitivity": "Medium",
+      "actor": "t2-designer",
+      "method": "POST",
+      "path": "/api/perform/manage_billing",
+      "expected": "DENY",
+      "note": "Billing settings are hidden in the UI for Designers",
+      "actor_label": "Designer2 (Northwind Studio / Designer)",
+      "http_status": 403,
+      "actual": "DENY",
+      "status": "PASS",
+      "weight": 2
+    }
+  ],
+  "permission_drift": [
+    {
+      "role": "Designer",
+      "expected_count": 12,
+      "actual_count": 15,
+      "drift": 3,
+      "unexpected_permissions": [
+        "delete_project",
+        "export_client_contract",
+        "invite_admin"
+      ],
+      "missing_permissions": []
+    },
+    {
+      "role": "Admin",
+      "expected_count": 16,
+      "actual_count": 16,
+      "drift": 0,
+      "unexpected_permissions": [],
+      "missing_permissions": []
+    }
+  ],
+  "trust_boundary_map": [
+    {
+      "resource": "Project Access",
+      "boundaries_tested": 3,
+      "protected": 3,
+      "status": "Protected"
+    },
+    {
+      "resource": "File Access",
+      "boundaries_tested": 3,
+      "protected": 0,
+      "status": "Exposed"
+    },
+    {
+      "resource": "Task Access",
+      "boundaries_tested": 2,
+      "protected": 2,
+      "status": "Protected"
+    },
+    {
+      "resource": "Workspace Metadata",
+      "boundaries_tested": 2,
+      "protected": 2,
+      "status": "Protected"
+    },
+    {
+      "resource": "Admin Action",
+      "boundaries_tested": 5,
+      "protected": 2,
+      "status": "Exposed"
+    },
+    {
+      "resource": "API Access",
+      "boundaries_tested": 2,
+      "protected": 1,
+      "status": "Exposed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "BT-04",
+      "title": "File Access Violation \u2014 Direct Object Reference (IDOR)",
+      "severity": "High",
+      "actor": "Designer2 (Northwind Studio / Designer)",
+      "path": "/api/files/file1",
+      "description": "Designer2 (Northwind Studio / Designer) performed GET /api/files/file1 and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-05",
+      "title": "File Access Violation \u2014 Direct Object Reference (IDOR)",
+      "severity": "High",
+      "actor": "Designer1 (Acme Architecture / Designer)",
+      "path": "/api/files/file2",
+      "description": "Designer1 (Acme Architecture / Designer) performed GET /api/files/file2 and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-06",
+      "title": "File Access Violation \u2014 Direct Object Reference (IDOR)",
+      "severity": "High",
+      "actor": "Admin1 (Acme Architecture / Admin)",
+      "path": "/api/files/file2",
+      "description": "Admin1 (Acme Architecture / Admin) performed GET /api/files/file2 and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-11",
+      "title": "Admin Action Violation \u2014 Cross-Role Access",
+      "severity": "High",
+      "actor": "Designer1 (Acme Architecture / Designer)",
+      "path": "/api/perform/delete_project",
+      "description": "Designer1 (Acme Architecture / Designer) performed POST /api/perform/delete_project and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-12",
+      "title": "Admin Action Violation \u2014 Cross-Role Access",
+      "severity": "High",
+      "actor": "Designer2 (Northwind Studio / Designer)",
+      "path": "/api/perform/invite_admin",
+      "description": "Designer2 (Northwind Studio / Designer) performed POST /api/perform/invite_admin and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-13",
+      "title": "Admin Action Violation \u2014 Cross-Role Access",
+      "severity": "High",
+      "actor": "Designer1 (Acme Architecture / Designer)",
+      "path": "/api/perform/export_client_contract",
+      "description": "Designer1 (Acme Architecture / Designer) performed POST /api/perform/export_client_contract and received an unexpected ALLOW (expected DENY)."
+    },
+    {
+      "id": "BT-16",
+      "title": "API Access Violation \u2014 UI-vs-API Consistency",
+      "severity": "High",
+      "actor": "Designer1 (Acme Architecture / Designer)",
+      "path": "/api/perform/delete_project",
+      "description": "Designer1 (Acme Architecture / Designer) performed POST /api/perform/delete_project and received an unexpected ALLOW (expected DENY). Delete Project button is hidden in the UI for Designers."
+    }
+  ]
+}
